@@ -52,32 +52,10 @@ app.get("/", (req, res) => {
 app.post('/api/upload-images', async (req, res) => {
 
   const { imagesBase64 } = req.body;
-
-  // if (!imagesBase64 || !Array.isArray(imagesBase64)) {
-  //   return res.status(400).json({ error: 'Invalid request body' });
-  // }
-
-  // try {
-  //   const uploadPromises = imagesBase64.map((imageBase64) =>
-  //     axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}?image=${imageBase64.split(',')[1]}`)
-  //   );
-
-  //   const responses = await Promise.all(uploadPromises);
-  //   const imageUrls = responses.map((res) => res.data.data.url);
-
-  //   return res.status(200).json({ urls: imageUrls });
-  // } catch (err) {
-  //   console.error(err);
-  //   return res.status(500).json({ error: 'Upload failed' });
-  // }
-
   const uploadPromises = imagesBase64.map( async (base64Image) => {
     const formData = new FormData();
     formData.append('image', base64Image.split(',')[1]); // Remove "data:image/...;base64,"
-
-    return axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, formData, {
-      headers: formData.getHeaders(), // Important: set correct multipart headers
-    });
+    return await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, formData);
   });
 
   const responses = await Promise.all(uploadPromises);
