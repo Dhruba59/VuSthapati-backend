@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const projectSchema = new mongoose.Schema({
   title: {
@@ -22,10 +22,18 @@ const projectSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  imageUrls: {
-    type: [String],
-    required: false,
-  },
+  images: [
+    {
+      url: {
+        type: String,
+        required: true,
+      },
+      deleteUrl: {
+        type: String,
+        default: null,
+      },
+    },
+  ],
   client: {
     type: String,
     required: true,
@@ -46,9 +54,8 @@ const projectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-})
+});
 
-const Project = mongoose.model("Project", projectSchema)
+const Project = mongoose.model("Project", projectSchema);
 
-export default Project
-
+export default Project;

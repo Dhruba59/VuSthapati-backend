@@ -12,7 +12,7 @@ const contactSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
   },
-  secondaryEmail: {
+  secondaryEmails: {
     type: Array,
     default: [],
   },
@@ -43,7 +43,7 @@ const contactSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  secondaryPhone: {
+  secondaryPhones: {
     type: Array,
     default: [],
   },

@@ -12,6 +12,7 @@ import fs from "fs"
 import multer from 'multer';
 import axios from "axios"
 import FormData from 'form-data';
+import AboutUsRoutes from "./routes/about.js"
 
 const upload = multer({ dest: 'uploads/' }); // or configure storage as needed
 
@@ -40,6 +41,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/news", newsRoutes)
 app.use("/api/skills", skillRoutes)
 app.use("/api/messages", messageRoutes)
+app.use("/api/about", AboutUsRoutes)
 app.use("/api/upload-image", express.static("uploads")) // Serve static files from the uploads directory
 
 
